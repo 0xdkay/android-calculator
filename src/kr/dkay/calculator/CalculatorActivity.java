@@ -13,7 +13,8 @@ import android.view.View;
 public class CalculatorActivity extends Activity {
 
 	private TextView resultView;
-	String storeResultView;
+	String storeResultView = "";
+	String storeTypedView = "";
 	private TextView typedView;
 	
 	private Button[] bNumber;
@@ -97,54 +98,34 @@ public class CalculatorActivity extends Activity {
         		
         		switch(v.getId()){
         		case R.id.ButtonNum0:
-    				resultView.append("0");
-    				storeResultView += "0";
-    				typedView.append("0");
-        			break;
+        			add("0");
+    				break;
         		case R.id.ButtonNum1:
-        			resultView.append("1");
-        			storeResultView += "1";
-        			typedView.append("1");
+        			add("1");
         			break;
         		case R.id.ButtonNum2:
-        			resultView.append("2");
-        			storeResultView += "2";
-        			typedView.append("2");
+        			add("2");
         			break;
         		case R.id.ButtonNum3:
-        			resultView.append("3");
-        			storeResultView += "3";
-        			typedView.append("3");
+        			add("3");
         			break;
         		case R.id.ButtonNum4:
-        			resultView.append("4");
-        			storeResultView += "4";
-        			typedView.append("4");
+        			add("4");
         			break;
         		case R.id.ButtonNum5:
-        			resultView.append("5");
-        			storeResultView += "5";
-        			typedView.append("5");
+        			add("5");
         			break;
         		case R.id.ButtonNum6:
-        			resultView.append("6");
-        			storeResultView += "6";
-        			typedView.append("6");
+        			add("6");
         			break;
         		case R.id.ButtonNum7:
-        			resultView.append("7");
-        			storeResultView += "7";
-        			typedView.append("7");
+        			add("7");
         			break;
         		case R.id.ButtonNum8:
-        			resultView.append("8");
-        			storeResultView += "8";
-        			typedView.append("8");
+        			add("8");
         			break;
         		case R.id.ButtonNum9:
-        			resultView.append("9");
-        			storeResultView += "9";
-        			typedView.append("9");
+        			add("9");
         			break;
         		case R.id.ButtonAdd:
         			calc();
@@ -152,6 +133,7 @@ public class CalculatorActivity extends Activity {
         			storeResultView = Float.toString(result);
         			resultView.setText(storeResultView);
         			typedView.append("+");
+        			storeTypedView += "+";
         			mark = true;
         			break;
         		case R.id.ButtonSub:
@@ -160,6 +142,7 @@ public class CalculatorActivity extends Activity {
         			storeResultView = Float.toString(result);
         			resultView.setText(storeResultView);
         			typedView.append("-");
+        			storeTypedView += "-";
         			mark = true;
         			break;
         		case R.id.ButtonMult:
@@ -168,6 +151,7 @@ public class CalculatorActivity extends Activity {
         			storeResultView = Float.toString(result);
         			resultView.setText(storeResultView);
         			typedView.append("*");
+        			storeTypedView += "*";
         			mark = true;
         			break;
         		case R.id.ButtonDiv:
@@ -181,6 +165,7 @@ public class CalculatorActivity extends Activity {
         			storeResultView = Float.toString(result);
         			resultView.setText(storeResultView);
         			typedView.append("/");
+        			storeTypedView += "/";
         			mark = true;
         			break;
         		case R.id.ButtonResult:
@@ -188,6 +173,8 @@ public class CalculatorActivity extends Activity {
         			operator = 0;
         			storeResultView = Float.toString(result);
         			resultView.setText(storeResultView);
+        			typedView.append("=");
+        			storeTypedView += "=";
         			ad.setMessage(storeResultView);
         			ad.show();
         			mark = true;
@@ -201,8 +188,12 @@ public class CalculatorActivity extends Activity {
         					resultView.setText(storeResultView);
         				}
         				        				
-        				tmp = typedView.getText().toString();
-        				typedView.setText(tmp.subSequence(0, tmp.length()-1));
+        				storeTypedView = storeTypedView.substring(0, storeTypedView.length()-1);
+        				if(storeTypedView.length()>20){
+        					typedView.setText(storeTypedView.substring(storeTypedView.length()-19, storeTypedView.length()));
+        				}else{
+        					typedView.setText(storeTypedView);
+        				}
         			}
         			break;
         		case R.id.ButtonC:
@@ -211,6 +202,7 @@ public class CalculatorActivity extends Activity {
         			resultView.setText("");
         			storeResultView = "";
         			typedView.setText("");
+        			storeTypedView = "";
         			break;
         		case R.id.ButtonPoint:
         			tmp = resultView.getText().toString();
@@ -219,8 +211,16 @@ public class CalculatorActivity extends Activity {
         				storeResultView += ".";
         			}
         			typedView.append(".");
+        			storeTypedView += ".";
         			break;
         		}
+        	}
+        	
+        	public void add(String a){
+    			resultView.append(a);
+    			storeResultView += a;
+    			typedView.append(a);
+    			storeTypedView += a;
         	}
         	
         	public void calc(){
