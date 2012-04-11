@@ -87,15 +87,6 @@ public class CalculatorActivity extends Activity {
         			mark = false;
         		}
         		
-        		tmp = typedView.getText().toString();
-        		if(tmp.length()>20){
-        			typedView.setText(tmp.substring(1, tmp.length()));
-        		}
-        		tmp = resultView.getText().toString();
-        		if(tmp.length()>13){
-        			resultView.setText(tmp.substring(1, tmp.length()));
-        		}
-        		
         		switch(v.getId()){
         		case R.id.ButtonNum0:
         			add("0");
@@ -181,19 +172,19 @@ public class CalculatorActivity extends Activity {
         			break;
         		case R.id.ButtonDel:
         			if(!storeResultView.equals("")){
-        				storeResultView = storeResultView.substring(0, storeResultView.length()-1);
         				if(storeResultView.length()>13){
-        					resultView.setText(storeResultView.substring(storeResultView.length()-12, storeResultView.length()));
+        					resultView.setText(storeResultView.substring(storeResultView.length()-14, storeResultView.length()-1));
         				}else{
-        					resultView.setText(storeResultView);
+        					resultView.setText(storeResultView.substring(0, storeResultView.length()-1));
         				}
+        				storeResultView = storeResultView.substring(0, storeResultView.length()-1);
         				        				
-        				storeTypedView = storeTypedView.substring(0, storeTypedView.length()-1);
         				if(storeTypedView.length()>20){
-        					typedView.setText(storeTypedView.substring(storeTypedView.length()-19, storeTypedView.length()));
+        					typedView.setText(storeTypedView.substring(storeTypedView.length()-21, storeTypedView.length()-1));
         				}else{
-        					typedView.setText(storeTypedView);
+        					typedView.setText(storeTypedView.substring(0, storeTypedView.length()-1));
         				}
+        				storeTypedView = storeTypedView.substring(0, storeTypedView.length()-1);
         			}
         			break;
         		case R.id.ButtonC:
@@ -214,6 +205,16 @@ public class CalculatorActivity extends Activity {
         			storeTypedView += ".";
         			break;
         		}
+        		
+        		tmp = typedView.getText().toString();
+        		if(tmp.length()>20){
+        			typedView.setText(tmp.substring(1, tmp.length()));
+        		}
+        		tmp = resultView.getText().toString();
+        		if(tmp.length()>13){
+        			resultView.setText(tmp.substring(1, tmp.length()));
+        		}
+        		
         	}
         	
         	public void add(String a){
@@ -259,7 +260,6 @@ public class CalculatorActivity extends Activity {
         this.bDel.setOnClickListener(adapter);
         this.bPoint.setOnClickListener(adapter);
     }
-    
     
 }
 
