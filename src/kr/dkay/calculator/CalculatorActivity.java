@@ -1,7 +1,5 @@
 package kr.dkay.calculator;
 
-//go
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -17,17 +15,10 @@ public class CalculatorActivity extends Activity {
 	String storeTypedView = "";
 	private TextView typedView;
 	
-	private Button[] bNumber;
-	private Button[] bOperator;
-	private Button bClear;
-	private Button bResult;
-	private Button bDel;
-	private Button bPoint;
 	private Context context = this;
 	
 	private char operator;
 	private float result;
-	
 	private boolean mark; 
 	
 	
@@ -43,33 +34,6 @@ public class CalculatorActivity extends Activity {
         
         this.resultView = (TextView)findViewById(R.id.result);
         this.typedView = (TextView)findViewById(R.id.typed);
-        
-        this.bClear = (Button)findViewById(R.id.ButtonC);
-        this.bResult = (Button)findViewById(R.id.ButtonResult);
-        this.bPoint = (Button)findViewById(R.id.ButtonPoint);
-        this.bDel = (Button)findViewById(R.id.ButtonDel);
-        
-        this.bNumber = new Button[10];
-        this.bNumber[0] = (Button)findViewById(R.id.ButtonNum0);
-        this.bNumber[1] = (Button)findViewById(R.id.ButtonNum1);
-        this.bNumber[2] = (Button)findViewById(R.id.ButtonNum2);
-        this.bNumber[3] = (Button)findViewById(R.id.ButtonNum3);
-        this.bNumber[4] = (Button)findViewById(R.id.ButtonNum4);
-        this.bNumber[5] = (Button)findViewById(R.id.ButtonNum5);
-        this.bNumber[6] = (Button)findViewById(R.id.ButtonNum6);
-        this.bNumber[7] = (Button)findViewById(R.id.ButtonNum7);
-        this.bNumber[8] = (Button)findViewById(R.id.ButtonNum8);
-        this.bNumber[9] = (Button)findViewById(R.id.ButtonNum9);
-        
-        this.bOperator = new Button[4];
-        this.bOperator[0] = (Button)findViewById(R.id.ButtonAdd);
-        this.bOperator[1] = (Button)findViewById(R.id.ButtonSub);
-        this.bOperator[2] = (Button)findViewById(R.id.ButtonMult);
-        this.bOperator[3] = (Button)findViewById(R.id.ButtonDiv);
-        
- 
-
-        
 		
         Button.OnClickListener adapter = new Button.OnClickListener() {
         	
@@ -119,31 +83,13 @@ public class CalculatorActivity extends Activity {
         			add("9");
         			break;
         		case R.id.ButtonAdd:
-        			calc();
-        			operator = '+';
-        			storeResultView = Float.toString(result);
-        			resultView.setText(storeResultView);
-        			typedView.append("+");
-        			storeTypedView += "+";
-        			mark = true;
+        			calc("+");
         			break;
         		case R.id.ButtonSub:
-        			calc();
-        			operator = '-';
-        			storeResultView = Float.toString(result);
-        			resultView.setText(storeResultView);
-        			typedView.append("-");
-        			storeTypedView += "-";
-        			mark = true;
+        			calc("-");
         			break;
         		case R.id.ButtonMult:
-        			calc();
-        			operator = '*';
-        			storeResultView = Float.toString(result);
-        			resultView.setText(storeResultView);
-        			typedView.append("*");
-        			storeTypedView += "*";
-        			mark = true;
+        			calc("*");
         			break;
         		case R.id.ButtonDiv:
         			if(resultView.getText().toString().equals("")){
@@ -151,24 +97,12 @@ public class CalculatorActivity extends Activity {
         				ad.setMessage("Input 0 changed to 1");
         				ad.show();
         			}
-        			calc();
-        			operator = '/';
-        			storeResultView = Float.toString(result);
-        			resultView.setText(storeResultView);
-        			typedView.append("/");
-        			storeTypedView += "/";
-        			mark = true;
+        			calc("/");
         			break;
         		case R.id.ButtonResult:
-        			calc();
-        			operator = 0;
-        			storeResultView = Float.toString(result);
-        			resultView.setText(storeResultView);
-        			typedView.append("=");
-        			storeTypedView += "=";
+        			calc("=");
         			ad.setMessage(storeResultView);
         			ad.show();
-        			mark = true;
         			break;
         		case R.id.ButtonDel:
         			if(!storeResultView.equals("")){
@@ -224,7 +158,7 @@ public class CalculatorActivity extends Activity {
     			storeTypedView += a;
         	}
         	
-        	public void calc(){
+        	public void calc(String a){
         		if(!storeResultView.equals("")){
     				switch(operator){
     				case '+':
@@ -244,22 +178,40 @@ public class CalculatorActivity extends Activity {
    						break;
    					}
     			}
+        		
+    			if(a.equals("=")){
+    				operator = 0;
+    			}else{
+    				operator = a.charAt(0);
+    			}
+    			storeResultView = Float.toString(result);
+    			resultView.setText(storeResultView);
+    			typedView.append(a);
+    			storeTypedView += a;
+    			mark = true;
         	}
         };
         
-        for(int i=0; i<10; i++){
-        	this.bNumber[i].setOnClickListener(adapter);
-        }
+        findViewById(R.id.ButtonC).setOnClickListener(adapter);
+        findViewById(R.id.ButtonResult).setOnClickListener(adapter);
+        findViewById(R.id.ButtonPoint).setOnClickListener(adapter);
+        findViewById(R.id.ButtonDel).setOnClickListener(adapter);
         
-        for(int i=0; i<4; i++){
-        	this.bOperator[i].setOnClickListener(adapter);
-        }
+        findViewById(R.id.ButtonNum0).setOnClickListener(adapter);
+        findViewById(R.id.ButtonNum1).setOnClickListener(adapter);
+        findViewById(R.id.ButtonNum2).setOnClickListener(adapter);
+        findViewById(R.id.ButtonNum3).setOnClickListener(adapter);
+        findViewById(R.id.ButtonNum4).setOnClickListener(adapter);
+        findViewById(R.id.ButtonNum5).setOnClickListener(adapter);
+        findViewById(R.id.ButtonNum6).setOnClickListener(adapter);
+        findViewById(R.id.ButtonNum7).setOnClickListener(adapter);
+        findViewById(R.id.ButtonNum8).setOnClickListener(adapter);
+        findViewById(R.id.ButtonNum9).setOnClickListener(adapter);
         
-        this.bClear.setOnClickListener(adapter);
-        this.bResult.setOnClickListener(adapter);
-        this.bDel.setOnClickListener(adapter);
-        this.bPoint.setOnClickListener(adapter);
+        findViewById(R.id.ButtonAdd).setOnClickListener(adapter);
+        findViewById(R.id.ButtonSub).setOnClickListener(adapter);
+        findViewById(R.id.ButtonMult).setOnClickListener(adapter);
+        findViewById(R.id.ButtonDiv).setOnClickListener(adapter);
     }
-    
 }
 
