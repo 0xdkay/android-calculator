@@ -1,5 +1,6 @@
 package kr.dkay.calculator;
 
+//go
 
 import android.app.Activity;
 import android.app.AlertDialog;
