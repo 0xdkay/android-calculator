@@ -1,14 +1,6 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_name">Calculator</string>
     <string name="hello">This is simple calculator!</string>
     
-=======
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-	<string name="app_name">Calculator</string>
-    <string name="hello">This is simple calculator!</string>
-    
->>>>>>> ba5c60069faac5c45e676a87b63a3caf8e0c507a
 </resources>
